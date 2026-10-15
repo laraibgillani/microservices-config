@@ -36,6 +36,3 @@ management:
     web:
       exposure:
         include: health,info,gateway
-
-        ---
-        can i define eureka like i define other routs without localhost
