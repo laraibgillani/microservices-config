@@ -20,6 +20,10 @@ spring:
           predicates:
             - Path=/api/user/**
 
+        - id: auth-service
+          uri: lb://auth-service
+          predicates:
+            - Path=/api/auth/**
 # Eureka
 eureka:
   client:
