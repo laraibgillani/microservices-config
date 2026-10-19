@@ -23,6 +23,6 @@ eureka:
 
 app:
   jwt:
-    secret: ${JWT_SECRET}
+    secret: "myprojectsecretkey"
     access-token-expiry-ms: ${JWT_ACCESS_EXPIRY:900000}
     refresh-token-expiry-ms: ${JWT_REFRESH_EXPIRY:604800000}
