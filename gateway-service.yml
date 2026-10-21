@@ -40,4 +40,4 @@ management:
         include: health,info,gateway
 
 jwt:
-  secret: ${JWT_SECRET}
+  secret: "83vK9mX2pL7wR4nT6yB1aF8dH5jS0uZcE3gN9kV2xQ="
