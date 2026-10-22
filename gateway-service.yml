@@ -2,6 +2,10 @@ server:
   port: 8080
 
 spring:
+  redis:
+    host: localhost
+    port: 6379
+
   cloud:
     gateway:
       routes:
@@ -14,6 +18,12 @@ spring:
               args:
                 name: orderServiceCB
                 fallbackUri: forward:/fallback/order-service
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 10
+                redis-rate-limiter.burstCapacity: 20
+                redis-rate-limiter.requestedTokens: 1
+                key-resolver: "#{@jwtKeyResolver}"
 
         - id: inventory-service
           uri: lb://inventory-service
@@ -24,6 +34,12 @@ spring:
               args:
                 name: inventoryServiceCB
                 fallbackUri: forward:/fallback/inventory-service
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 10
+                redis-rate-limiter.burstCapacity: 20
+                redis-rate-limiter.requestedTokens: 1
+                key-resolver: "#{@jwtKeyResolver}"
 
         - id: login-service
           uri: lb://login-service
@@ -34,6 +50,12 @@ spring:
               args:
                 name: loginServiceCB
                 fallbackUri: forward:/fallback/login-service
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 5
+                redis-rate-limiter.burstCapacity: 10
+                redis-rate-limiter.requestedTokens: 1
+                key-resolver: "#{@jwtKeyResolver}"
 
         - id: auth-service
           uri: lb://auth-service
@@ -44,6 +66,12 @@ spring:
               args:
                 name: authServiceCB
                 fallbackUri: forward:/fallback/auth-service
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 2
+                redis-rate-limiter.burstCapacity: 5
+                redis-rate-limiter.requestedTokens: 1
+                key-resolver: "#{@jwtKeyResolver}"
 
 # Eureka
 eureka:
